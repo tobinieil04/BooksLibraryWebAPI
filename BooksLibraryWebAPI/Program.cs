@@ -1,3 +1,9 @@
+using BooksLibraryWebAPI.Data;
+using BooksLibraryWebAPI.Interfaces;
+using BooksLibraryWebAPI.Repositories;
+using BooksLibraryWebAPI.Services;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace BooksLibraryWebAPI
 {
@@ -8,8 +14,18 @@ namespace BooksLibraryWebAPI
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            // Configure In-Memory Database
+            builder.Services.AddDbContext<AppDbContext>(options =>
+            options.UseInMemoryDatabase("LibraryDb"));
 
+
+            builder.Services.AddScoped<IBookRepository, BookRepository>();
+            builder.Services.AddScoped<IBookService, BookService>();
+
+            builder.Services.AddAutoMapper(typeof(Program));
             builder.Services.AddControllers();
+
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -23,8 +39,7 @@ namespace BooksLibraryWebAPI
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
-
+            app.UseRouting();
             app.UseAuthorization();
 
 
