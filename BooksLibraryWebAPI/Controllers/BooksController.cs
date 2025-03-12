@@ -29,8 +29,13 @@ namespace BooksLibraryWebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddBook(BookDTO bookDTO)
+        public async Task<IActionResult> AddBook([FromBody] BookDTO bookDTO)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             await _service.AddBookAsync(bookDTO);
             return CreatedAtAction(nameof(GetBook), new { id = bookDTO.Id }, bookDTO);
         }

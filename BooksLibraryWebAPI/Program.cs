@@ -22,7 +22,6 @@ namespace BooksLibraryWebAPI
             builder.Services.AddScoped<IBookRepository, BookRepository>();
             builder.Services.AddScoped<IBookService, BookService>();
 
-            builder.Services.AddAutoMapper(typeof(Program));
             builder.Services.AddControllers();
 
 
