@@ -16,9 +16,9 @@ namespace BooksLibraryWebAPI.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<BookDTO>> GetAllBooksAsync()
+        public async Task<IEnumerable<BookDTO>> GetAllBooksAsync(string? search, string? sortBy, int? pageNumber, int? pageSize)
         {
-            var books = await _repository.GetAllBooksAsync();
+            var books = await _repository.GetAllBooksAsync(search, sortBy, pageNumber, pageSize);
             return _mapper.Map<IEnumerable<BookDTO>>(books);
         }
 

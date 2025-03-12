@@ -16,7 +16,10 @@ namespace BooksLibraryWebAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<BookDTO>>> GetBooks() => Ok(await _service.GetAllBooksAsync());
+        public async Task<ActionResult<IEnumerable<BookDTO>>> GetBooks(string? search, string? sortBy, int? pageNumber, int? pageSize)
+        { 
+             return Ok(await _service.GetAllBooksAsync(search, sortBy, pageNumber, pageSize));
+        }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<BookDTO>> GetBook(int id)
